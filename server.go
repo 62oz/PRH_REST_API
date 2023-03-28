@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -9,6 +8,7 @@ import (
 )
 
 func handlePostalCodeCompanies(w http.ResponseWriter, r *http.Request) {
+	// Check for the correct path
 	prefix := "/postal_codes/"
 	if !strings.HasPrefix(r.URL.Path, prefix) {
 		http.NotFound(w, r)
@@ -28,6 +28,8 @@ func handlePostalCodeCompanies(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	// If data is not in the database, fetch it from the API
 	if len(companies) == 0 {
 		// Get the data from the API
 		log.Println("Fetching data from the API for new postal code...")
@@ -44,23 +46,4 @@ func handlePostalCodeCompanies(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	json.NewEncoder(w).Encode(companies)
-}
-
-func getCompaniesByPostalCode(db *sql.DB, code string) ([]Company, error) {
-	rows, err := db.Query("SELECT * FROM companies WHERE postal_code = ?", code)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	var companies []Company
-	for rows.Next() {
-		var company Company
-		err := rows.Scan(&company.BusinessID, &company.Name, &company.RegistrationDate, &company.CompanyForm, &company.PostalCode, &company.DetailsURI)
-		if err != nil {
-			return nil, err
-		}
-		companies = append(companies, company)
-	}
-	return companies, nil
 }

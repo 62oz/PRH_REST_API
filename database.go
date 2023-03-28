@@ -50,3 +50,22 @@ func insertCompanies(db *sql.DB, companies []Company) error {
 
 	return tx.Commit()
 }
+
+func getCompaniesByPostalCode(db *sql.DB, code string) ([]Company, error) {
+	rows, err := db.Query("SELECT * FROM companies WHERE postal_code = ?", code)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var companies []Company
+	for rows.Next() {
+		var company Company
+		err := rows.Scan(&company.BusinessID, &company.Name, &company.RegistrationDate, &company.CompanyForm, &company.PostalCode, &company.DetailsURI)
+		if err != nil {
+			return nil, err
+		}
+		companies = append(companies, company)
+	}
+	return companies, nil
+}

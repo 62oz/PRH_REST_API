@@ -17,13 +17,14 @@ func main() {
 	for i, postalCode := range postalCodes {
 		data[i] = GetHandler(postalCode, nCompanies)
 	}
+
 	// Create the database
 	db := getDB("companies.db")
 
 	log.Println("Inserting data into the database...")
 	// Insert the data into the database
 	for _, postalCodes := range data {
-		// Check that it is valid
+		// Check for validity
 		if postalCodes == nil {
 			continue
 		}
@@ -35,6 +36,6 @@ func main() {
 
 	// Start the server
 	http.HandleFunc("/postal_codes/", handlePostalCodeCompanies)
-	log.Println("Starting server port 8080 (http://localhost:8080/)")
+	log.Println("Starting server port 8080 (http://localhost:8080/postal_codes/)")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
