@@ -7,18 +7,16 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func createDB(path string) *sql.DB {
+func getDB(path string) *sql.DB {
 	// Open the database
 	db, err := sql.Open("sqlite3", path)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
 
 	// Create the companies table
 	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS companies (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        business_id TEXT NOT NULL,
+        business_id TEXT PRIMARY KEY UNIQUE,
         name TEXT NOT NULL,
         registration_date TEXT NOT NULL,
         company_form TEXT NOT NULL,
