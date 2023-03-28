@@ -23,6 +23,10 @@ func main() {
 	log.Println("Inserting data into the database...")
 	// Insert the data into the database
 	for _, postalCodes := range data {
+		// Check that it is valid
+		if postalCodes == nil {
+			continue
+		}
 		err := insertCompanies(db, postalCodes.([]Company))
 		if err != nil {
 			fmt.Println("Insert error:", err)

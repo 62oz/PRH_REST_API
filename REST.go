@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -26,6 +27,21 @@ func handlePostalCodeCompanies(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+	}
+	if len(companies) == 0 {
+		// Get the data from the API
+		log.Println("Fetching data from the API for new postal code...")
+		companies = GetHandler(code, 20)
+		if companies == nil {
+			http.Error(w, "No companies found in the database for this postal code.", http.StatusNotFound)
+			return
+		}
+		// Insert the data into the database
+		err := insertCompanies(db, companies)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 	json.NewEncoder(w).Encode(companies)
 }
