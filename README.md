@@ -4,12 +4,12 @@ This project fetches data about companies in the Helsinki metropolitan area regi
 
 ## Requirements
 
-    Go 1.16 or higher
-    SQLite 3
+- Go 1.16 or higher
+- SQLite 3
 
 ## Installation
 
-    Clone the repository:
+Clone the repository:
 
 ```
 git clone https://github.com/your-username/ PRH_REST_API.git
