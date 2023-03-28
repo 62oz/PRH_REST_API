@@ -12,7 +12,7 @@ This project fetches data about companies in the Helsinki metropolitan area regi
 Clone the repository:
 
 ```
-git clone https://github.com/your-username/ PRH_REST_API.git
+git clone https://github.com/62oz/PRH_REST_API.git
 ```
 
 Navigate to the project directory:
