@@ -24,7 +24,7 @@ cd  PRH_REST_API
 Install the required Go packages:
 
 ```
-    go mod download
+go mod download
 ```
 
 ## Usage
