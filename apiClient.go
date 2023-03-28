@@ -12,6 +12,7 @@ type Company struct {
 	Name             string `json:"name"`
 	RegistrationDate string `json:"registrationDate"`
 	CompanyForm      string `json:"companyForm"`
+	PostalCode       string
 	DetailsURI       string `json:"detailsUri"`
 }
 
@@ -38,6 +39,11 @@ func GetHandler(postalCode string, nCompanies int) []Company {
 	if err != nil {
 		fmt.Println("Decoder error:", err)
 		return nil
+	}
+
+	// Add postal code to each company
+	for i := range result.Results {
+		result.Results[i].PostalCode = postalCode
 	}
 
 	return result.Results
