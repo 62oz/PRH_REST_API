@@ -2,12 +2,12 @@
 
 This project fetches data about companies in the Helsinki metropolitan area registered to a given postal code using the [Finnish Business Information System (BIS) API](https://avoindata.prh.fi/ytj_en.html). It then stores the data in a SQLite database and provides a REST API to retrieve the data in JSON format.
 
-##Requirements
+## Requirements
 
     Go 1.16 or higher
     SQLite 3
 
-##Installation
+## Installation
 
     Clone the repository:
 
@@ -27,7 +27,7 @@ Install the required Go packages:
     go mod download
 ```
 
-##Usage
+## Usage
 To start the API server, run:
 
 ```
