@@ -33,7 +33,7 @@ func handlePostalCodeCompanies(w http.ResponseWriter, r *http.Request) {
 	if len(companies) == 0 {
 		// Get the data from the API
 		log.Println("Fetching data from the API for new postal code...")
-		companies = GetHandler(code, 20)
+		companies = GetHandler(code, 2)
 		if companies == nil {
 			http.Error(w, "No companies found in the database for this postal code.", http.StatusNotFound)
 			return

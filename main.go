@@ -9,7 +9,7 @@ import (
 func main() {
 	// Choose the postal codes and the number of companies to get for each
 	postalCodes := []string{"02100", "00140", "00930", "00710", "01730", "00500", "01760", "01690", "00510", "00180"}
-	nCompanies := 20
+	nCompanies := 2
 
 	log.Println("Fetching data from the API...")
 	// Get the data from the API
